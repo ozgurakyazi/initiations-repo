@@ -1,0 +1,97 @@
+python3 --version
+
+python3 -m venv .
+
+source bin/activate
+
+pip install --upgrade pip
+
+pip install django~=1.11.0
+---or---
+pip install django
+
+django-admin startproject ##project-name## .
+
+TIME_ZONE = 'Europe/Berlin' --> settings.py
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') ---> settings
+
+ALLOWED_HOSTS = ['127.0.0.1'] -> settings
+
+
+python manage.py migrate
+
+python manage.py runserver
+
+----------Application Create -------
+
+python manage.py startapp ##application-name##
+
+------------------------------------
+
+INSTALLED_APPS = [........... , '##application-name##',]
+
+
+python manage.py makemigrations ###appname###
+
+
+
+#####URL####
+
+projectname/urls.py
+
+from django.conf.urls import include, url
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'', include('###appname###.urls')), ---> add this line
+]
+
+
+appname/urls.py
+
+from django.conf.urls import url
+from . import views
+
+urlpatterns = [
+    url(r'^$', views.##viewname, name='##give a name##'),
+]
+
+
+
+appname/views.py
+
+def index(request):
+    return render(request, 'index.html')
+
+appname/template/index.html
+
+--- a html code ---
+
+
+appname/template/base.html
+
+<body>
+    <div class="page-header">
+        <h1><a href="/">Hello</a></h1>
+    </div>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+
+
+appname/template/##a html page##
+
+{% extends 'appname/base.html' %}
+
+{% block content %}
+  ...html code ...
+{% endblock %}
