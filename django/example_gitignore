@@ -7,4 +7,5 @@
 /lib/
 /lib64/
 /share/
-pyenv.cfg
+pyvenv.cfg
+pip-selfcheck.json
